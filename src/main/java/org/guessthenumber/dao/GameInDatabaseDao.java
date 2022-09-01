@@ -1,4 +1,4 @@
 package org.guessthenumber.dao;
 
-public class GameInMemoryDao {
+public class GameInDatabaseDao {
 }
