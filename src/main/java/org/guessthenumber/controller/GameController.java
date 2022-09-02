@@ -4,6 +4,7 @@ import org.guessthenumber.dao.GameDao;
 import org.guessthenumber.dto.Game;
 import org.guessthenumber.service.GameServiceLayer;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,5 +32,14 @@ public class GameController {
     @GetMapping("/game")
     public List<Game> allGames() {
         return gameDao.getAllGames();
+    }
+
+    @GetMapping("game/{id}")
+    public ResponseEntity<Game> findById(@PathVariable int id) {
+        Game result = gameDao.findGameById(id);
+        if (result == null) {
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(result);
     }
 }

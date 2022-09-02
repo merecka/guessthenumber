@@ -8,8 +8,8 @@ public interface GameDao {
     Game addGame(Game game);
 
     List<Game> getAllGames();
-//
-//    Game findGameById(int id);
+
+    Game findGameById(int id);
 //
 //    // true if item exists and is updated
 //    boolean update(Game game);
