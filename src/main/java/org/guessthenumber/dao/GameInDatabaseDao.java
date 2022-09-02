@@ -46,6 +46,15 @@ public class GameInDatabaseDao implements GameDao {
         return jdbcTemplate.query(sql, new GameMapper());
     }
 
+    @Override
+    public Game findGameById(int id) {
+
+        final String sql = "SELECT gameId, gameAnswer, gameStatus "
+                + "FROM game WHERE gameId = ?;";
+
+        return jdbcTemplate.queryForObject(sql, new GameMapper(), id);
+    }
+
     private static final class GameMapper implements RowMapper<Game> {
 
         @Override
