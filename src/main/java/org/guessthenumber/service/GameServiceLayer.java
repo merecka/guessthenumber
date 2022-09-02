@@ -1,5 +1,6 @@
 package org.guessthenumber.service;
 
+import org.guessthenumber.dto.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,8 @@ public class GameServiceLayer {
     public GameServiceLayer() {
     }
 
-    public String generateNewGameAnswer() {
+    public Game generateNewGameAnswer() {
+        List<String> newGameStringArray = new ArrayList<>();
         Random random = new Random();
         List<Integer> answerArray = new ArrayList<>();
         boolean keepGoing = false;
@@ -39,6 +41,9 @@ public class GameServiceLayer {
             answerStringBuffer.append(Integer.toString(number));
         }
 
-        return answerStringBuffer.toString();
+        Game newGame = new Game();
+        newGame.setGameAnswer(answerStringBuffer.toString());
+        newGame.setGameStatus("In Progress");
+        return newGame;
     }
 }
