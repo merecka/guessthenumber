@@ -54,6 +54,9 @@ public class GameInDatabaseDao implements GameDao {
             game.setGameId(rs.getInt("gameId"));
             game.setGameAnswer(rs.getString("gameAnswer"));
             game.setGameStatus(rs.getString("gameStatus"));
+            if (game.getGameStatus().equals("In Progress")) {
+                game.setGameAnswer("");
+            }
             return game;
         }
     }
