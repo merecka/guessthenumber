@@ -7,7 +7,7 @@ import java.util.List;
 public interface GameDao {
     Game addGame(Game game);
 
-//    List<Game> getAllGames();
+    List<Game> getAllGames();
 //
 //    Game findGameById(int id);
 //

@@ -27,4 +27,9 @@ public class GameController {
         Game newGame = gameService.generateNewGameAnswer();
         return gameDao.addGame(newGame);
     }
+
+    @GetMapping("/game")
+    public List<Game> allGames() {
+        return gameDao.getAllGames();
+    }
 }
