@@ -12,6 +12,16 @@ public class Round {
 
     private String roundResult;
 
+    private int gameId;
+
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
+
     public int getRoundId() {
         return roundId;
     }

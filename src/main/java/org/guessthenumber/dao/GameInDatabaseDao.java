@@ -30,7 +30,6 @@ public class GameInDatabaseDao implements GameDao {
                     Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, game.getGameAnswer());
-            statement.setString(2, game.getGameStatus());
             return statement;
 
         }, keyHolder);

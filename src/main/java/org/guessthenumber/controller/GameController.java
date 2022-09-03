@@ -2,6 +2,7 @@ package org.guessthenumber.controller;
 
 import org.guessthenumber.dao.GameDao;
 import org.guessthenumber.dto.Game;
+import org.guessthenumber.dto.Round;
 import org.guessthenumber.service.GameServiceLayer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class GameController {
     @PostMapping("/begin")
     @ResponseStatus(HttpStatus.CREATED)
     public Game createNewGame() {
-        Game newGame = gameService.generateNewGameAnswer();
+        Game newGame = gameService.generateNewGame();
         return gameDao.addGame(newGame);
     }
 
@@ -41,5 +42,15 @@ public class GameController {
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/guess")
+    @ResponseStatus(HttpStatus.CREATED)
+    // Request is in the form of { gameId: "1", guess: "1234" }
+    public Game createNewGuess(@RequestBody Round round) {
+        Game retrievedGame = gameDao.findGameById(round.getGameId());
+        gameService.generateNewGuess(retrievedGame, round);
+
+        return gameDao.addGame(newGame);
     }
 }
