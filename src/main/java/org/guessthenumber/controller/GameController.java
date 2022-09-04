@@ -1,6 +1,7 @@
 package org.guessthenumber.controller;
 
 import org.guessthenumber.dao.GameDao;
+import org.guessthenumber.dao.RoundDao;
 import org.guessthenumber.dto.Game;
 import org.guessthenumber.dto.Round;
 import org.guessthenumber.service.GameServiceLayer;
@@ -16,11 +17,14 @@ public class GameController {
 
     private final GameDao gameDao;
 
+    private final RoundDao roundDao;
+
     private final GameServiceLayer gameService;
 
-    public GameController(GameDao gameDao, GameServiceLayer gameService) {
+    public GameController(GameDao gameDao, GameServiceLayer gameService, RoundDao roundDao) {
         this.gameService = gameService;
         this.gameDao = gameDao;
+        this.roundDao = roundDao;
     }
 
     @PostMapping("/begin")
@@ -47,10 +51,10 @@ public class GameController {
     @PostMapping("/guess")
     @ResponseStatus(HttpStatus.CREATED)
     // Request is in the form of { gameId: "1", guess: "1234" }
-    public Game createNewGuess(@RequestBody Round round) {
+    public Round createNewGuess(@RequestBody Round round) {
         Game retrievedGame = gameDao.findGameById(round.getGameId());
         gameService.generateNewGuess(retrievedGame, round);
-
-        return gameDao.addGame(newGame);
+        gameDao.updateGame(retrievedGame);
+        return roundDao.addRound(round);
     }
 }

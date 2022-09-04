@@ -50,21 +50,19 @@ public class GameServiceLayer {
     }
 
     public void generateNewGuess(Game game, Round round) {
-        LocalDateTime guessTime = LocalDateTime.now();
         int exactMatches = 0;
         int partialMatches = 0;
 
-        // Checks to see if there is an exact match
+        // Checks to see if there is an exact match between Guess and Answer
         if (game.getGameAnswer().equals(round.getGuess())) {
             exactMatches = 1;
             String roundResult = "e:" + Integer.toString(exactMatches) + ":e:" + Integer.toString(partialMatches);
             game.setGameStatus("Finished");
             round.setRoundResult(roundResult);
-            round.setGuessTime(guessTime);
             return;
         }
 
-        // Check to see if this a partial match
+        // Check to see if there is a partial match
         ArrayList<String> guessArray = new ArrayList<String>(
                 Arrays.asList(round.getGuess()));
 
@@ -79,6 +77,5 @@ public class GameServiceLayer {
 
         String roundResult = "e:" + Integer.toString(exactMatches) + ":e:" + Integer.toString(partialMatches);
         round.setRoundResult(roundResult);
-        round.setGuessTime(guessTime);
     }
 }

@@ -54,6 +54,18 @@ public class GameInDatabaseDao implements GameDao {
         return jdbcTemplate.queryForObject(sql, new GameMapper(), id);
     }
 
+    @Override
+    public boolean updateGame(Game game) {
+
+        final String sql = "UPDATE game SET "
+                + "gameStatus = ?, "
+                + "WHERE id = ?;";
+
+        return jdbcTemplate.update(sql,
+                game.getGameStatus(),
+                game.getGameId()) > 0;
+    }
+
     private static final class GameMapper implements RowMapper<Game> {
 
         @Override

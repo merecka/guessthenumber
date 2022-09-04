@@ -1,6 +1,5 @@
 package org.guessthenumber.dao;
 
-import org.guessthenumber.dto.Game;
 import org.guessthenumber.dto.Round;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,9 +18,9 @@ public class RoundInDatabaseDao implements RoundDao {
     }
 
     @Override
-    public Game addGame(Game game) {
+    public Round addRound(Round round) {
 
-        final String sql = "INSERT INTO game(gameAnswer, gameStatus) VALUES(?,?);";
+        final String sql = "INSERT INTO round(guess, roundResult, gameId) VALUES(?,?,?,?);";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update((Connection conn) -> {
@@ -30,14 +29,16 @@ public class RoundInDatabaseDao implements RoundDao {
                     sql,
                     Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(1, game.getGameAnswer());
+            statement.setString(1, round.getGuess());
+            statement.setString(2, round.getRoundResult());
+            statement.setInt(3, round.getGameId());
             return statement;
 
         }, keyHolder);
 
-        game.setGameId(keyHolder.getKey().intValue());
+        round.setRoundId(keyHolder.getKey().intValue());
 
-        return game;
+        return round;
     }
 
 //    @Override
