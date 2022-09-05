@@ -53,4 +53,15 @@ public class Round {
     public void setRoundResult(String roundResult) {
         this.roundResult = roundResult;
     }
+
+    @Override
+    public String toString() {
+        return "Round{" +
+                "roundId=" + roundId +
+                ", guess='" + guess + '\'' +
+                ", guessTime=" + guessTime +
+                ", roundResult='" + roundResult + '\'' +
+                ", gameId=" + gameId +
+                '}';
+    }
 }

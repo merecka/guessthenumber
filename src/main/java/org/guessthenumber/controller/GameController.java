@@ -56,6 +56,8 @@ public class GameController {
         System.out.println("retrievedGame is: " + retrievedGame.toString());
         gameService.generateNewGuess(retrievedGame, round);
         gameDao.updateGame(retrievedGame);
-        return roundDao.addRound(round);
+        Round addedRound = roundDao.addRound(round);
+        System.out.println("addedRound is: " + addedRound.toString());
+        return roundDao.findRoundById(addedRound.getRoundId());
     }
 }

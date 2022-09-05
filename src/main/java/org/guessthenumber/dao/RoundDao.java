@@ -9,7 +9,6 @@ public interface RoundDao {
     Round addRound(Round round);
 
     List<Round> getAllRounds();
-//
-//    Round findRoundById(int id);
+    Round findRoundById(int roundId);
 
 }

@@ -37,8 +37,8 @@ public class RoundInDatabaseDao implements RoundDao {
 
         }, keyHolder);
 
-        round.setRoundId(keyHolder.getKey().intValue());
-
+        int newId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        round.setRoundId(newId);
         return round;
     }
 
@@ -47,15 +47,13 @@ public class RoundInDatabaseDao implements RoundDao {
         final String sql = "SELECT * FROM round;";
         return jdbcTemplate.query(sql, new RoundInDatabaseDao.RoundMapper());
     }
-//
-//    @Override
-//    public Game findGameById(int id) {
-//
-//        final String sql = "SELECT gameId, gameAnswer, gameStatus "
-//                + "FROM game WHERE gameId = ?;";
-//
-//        return jdbcTemplate.queryForObject(sql, new GameInDatabaseDao.GameMapper(), id);
-//    }
+
+    @Override
+    public Round findRoundById(int roundId) {
+        System.out.println("roundId is: " + roundId);
+        final String sql = "SELECT * from round WHERE roundId = ?; ";
+        return jdbcTemplate.queryForObject(sql, new RoundInDatabaseDao.RoundMapper(), roundId);
+    }
 
     private static final class RoundMapper implements RowMapper<Round> {
 
