@@ -45,13 +45,18 @@ public class GameServiceLayer {
         }
 
         Game newGame = new Game();
+        System.out.println("answerStringBuffer.toString() is " + answerStringBuffer.toString());
         newGame.setGameAnswer(answerStringBuffer.toString());
+        System.out.println("newGame.getGameAnswer() is: " + newGame.getGameAnswer());
         return newGame;
     }
 
     public void generateNewGuess(Game game, Round round) {
         int exactMatches = 0;
         int partialMatches = 0;
+
+        System.out.println("round.getGuess() is: " + round.getGuess());
+        System.out.println("game.getGameAnswer() is: " + game.getGameAnswer());
 
         // Checks to see if there is an exact match between Guess and Answer
         if (game.getGameAnswer().equals(round.getGuess())) {
@@ -63,11 +68,15 @@ public class GameServiceLayer {
         }
 
         // Check to see if there is a partial match
-        ArrayList<String> guessArray = new ArrayList<String>(
-                Arrays.asList(round.getGuess()));
+        ArrayList<Character> guessArray = new ArrayList<Character>();
+        for (char c : round.getGuess().toCharArray()) {
+            guessArray.add(c);
+        }
 
-        ArrayList<String> answerArray = new ArrayList<String>(
-                Arrays.asList(game.getGameAnswer()));
+        ArrayList<Character> answerArray = new ArrayList<Character>();
+        for (char c : game.getGameAnswer().toCharArray()) {
+            answerArray.add(c);
+        }
 
         for (int i = 0; i < guessArray.size(); i++) {
             if (answerArray.contains(guessArray.get(i))) {
@@ -75,7 +84,7 @@ public class GameServiceLayer {
             }
         }
 
-        String roundResult = "e:" + Integer.toString(exactMatches) + ":e:" + Integer.toString(partialMatches);
+        String roundResult = "e:" + Integer.toString(exactMatches) + ":p:" + Integer.toString(partialMatches);
         round.setRoundResult(roundResult);
     }
 }

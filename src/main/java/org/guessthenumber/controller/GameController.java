@@ -53,6 +53,7 @@ public class GameController {
     // Request is in the form of { gameId: "1", guess: "1234" }
     public Round createNewGuess(@RequestBody Round round) {
         Game retrievedGame = gameDao.findGameById(round.getGameId());
+        System.out.println("retrievedGame is: " + retrievedGame.toString());
         gameService.generateNewGuess(retrievedGame, round);
         gameDao.updateGame(retrievedGame);
         return roundDao.addRound(round);

@@ -8,7 +8,7 @@ import java.util.List;
 public interface RoundDao {
     Round addRound(Round round);
 
-//    List<Round> getAllRounds();
+    List<Round> getAllRounds();
 //
 //    Round findRoundById(int id);
 

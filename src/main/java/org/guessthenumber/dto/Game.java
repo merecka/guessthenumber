@@ -31,4 +31,13 @@ public class Game {
     public void setGameStatus(String gameStatus) {
         this.gameStatus = gameStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "gameId=" + gameId +
+                ", gameAnswer='" + gameAnswer + '\'' +
+                ", gameStatus='" + gameStatus + '\'' +
+                '}';
+    }
 }

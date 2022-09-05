@@ -20,7 +20,7 @@ public class GameInDatabaseDao implements GameDao {
     @Override
     public Game addGame(Game game) {
 
-        final String sql = "INSERT INTO game(gameAnswer, gameStatus) VALUES(?,?);";
+        final String sql = "INSERT INTO game(gameAnswer) VALUES(?);";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update((Connection conn) -> {
@@ -58,8 +58,8 @@ public class GameInDatabaseDao implements GameDao {
     public boolean updateGame(Game game) {
 
         final String sql = "UPDATE game SET "
-                + "gameStatus = ?, "
-                + "WHERE id = ?;";
+                + "gameStatus = ? "
+                + "WHERE gameId = ?;";
 
         return jdbcTemplate.update(sql,
                 game.getGameStatus(),
@@ -74,9 +74,6 @@ public class GameInDatabaseDao implements GameDao {
             game.setGameId(rs.getInt("gameId"));
             game.setGameAnswer(rs.getString("gameAnswer"));
             game.setGameStatus(rs.getString("gameStatus"));
-            if (game.getGameStatus().equals("In Progress")) {
-                game.setGameAnswer("");
-            }
             return game;
         }
     }

@@ -1,5 +1,6 @@
 package org.guessthenumber.dao;
 
+import org.guessthenumber.dto.Game;
 import org.guessthenumber.dto.Round;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,7 +21,7 @@ public class RoundInDatabaseDao implements RoundDao {
     @Override
     public Round addRound(Round round) {
 
-        final String sql = "INSERT INTO round(guess, roundResult, gameId) VALUES(?,?,?,?);";
+        final String sql = "INSERT INTO round(guess, roundResult, gameId) VALUES(?,?,?);";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update((Connection conn) -> {
@@ -41,11 +42,11 @@ public class RoundInDatabaseDao implements RoundDao {
         return round;
     }
 
-//    @Override
-//    public List<Game> getAllGames() {
-//        final String sql = "SELECT gameId, gameAnswer, gameStatus FROM game;";
-//        return jdbcTemplate.query(sql, new GameInDatabaseDao.GameMapper());
-//    }
+    @Override
+    public List<Round> getAllRounds() {
+        final String sql = "SELECT * FROM round;";
+        return jdbcTemplate.query(sql, new RoundInDatabaseDao.RoundMapper());
+    }
 //
 //    @Override
 //    public Game findGameById(int id) {
