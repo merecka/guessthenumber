@@ -51,7 +51,11 @@ public class GameInDatabaseDao implements GameDao {
         final String sql = "SELECT gameId, gameAnswer, gameStatus "
                 + "FROM game WHERE gameId = ?;";
 
-        return jdbcTemplate.queryForObject(sql, new GameMapper(), id);
+        Game retrievedGame = jdbcTemplate.queryForObject(sql, new GameMapper(), id);
+        if (retrievedGame.getGameStatus().equals("In Progress")) {
+            retrievedGame.setGameAnswer("");
+        }
+        return retrievedGame;
     }
 
     @Override
