@@ -40,7 +40,7 @@ public class GameController {
     }
 
     @GetMapping("game/{id}")
-    public ResponseEntity<Game> findById(@PathVariable int id) {
+    public ResponseEntity<Game> findGameById(@PathVariable int id) {
         Game result = gameDao.findGameById(id);
         if (result == null) {
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
@@ -59,5 +59,14 @@ public class GameController {
         Round addedRound = roundDao.addRound(round);
         System.out.println("addedRound is: " + addedRound.toString());
         return roundDao.findRoundById(addedRound.getRoundId());
+    }
+
+    @GetMapping("round/{id}")
+    public ResponseEntity<Round> findRoundById(@PathVariable int id) {
+        Round result = roundDao.findRoundById(id);
+        if (result == null) {
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(result);
     }
 }
