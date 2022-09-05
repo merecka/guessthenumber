@@ -69,4 +69,13 @@ public class GameController {
         }
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("rounds/{id}")
+    public ResponseEntity<List<Round>> findRoundsByGameId(@PathVariable int id) {
+        List<Round> result = roundDao.findRoundsByGameId(id);
+        if (result == null) {
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(result);
+    }
 }

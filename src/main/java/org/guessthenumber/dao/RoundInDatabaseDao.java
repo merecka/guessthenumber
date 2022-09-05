@@ -55,6 +55,12 @@ public class RoundInDatabaseDao implements RoundDao {
         return jdbcTemplate.queryForObject(sql, new RoundInDatabaseDao.RoundMapper(), roundId);
     }
 
+    @Override
+    public List<Round> findRoundsByGameId(int gameId) {
+        final String sql = "SELECT * from round WHERE gameId = ? ORDER BY guessTime ASC; ";
+        return jdbcTemplate.query(sql, new RoundInDatabaseDao.RoundMapper(), gameId);
+    }
+
     private static final class RoundMapper implements RowMapper<Round> {
 
         @Override
