@@ -11,4 +11,6 @@ public interface RoundDao {
     List<Round> getAllRounds();
     Round findRoundById(int roundId);
 
+    List<Round> findRoundsByGameId(int gameId);
+
 }
