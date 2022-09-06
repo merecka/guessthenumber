@@ -35,6 +35,7 @@ public class GameInDatabaseDao implements GameDao {
         }, keyHolder);
 
         game.setGameId(keyHolder.getKey().intValue());
+        game.setGameAnswer("");
 
         return game;
     }
@@ -42,7 +43,14 @@ public class GameInDatabaseDao implements GameDao {
     @Override
     public List<Game> getAllGames() {
         final String sql = "SELECT gameId, gameAnswer, gameStatus FROM game;";
-        return jdbcTemplate.query(sql, new GameMapper());
+        List<Game> allGames = jdbcTemplate.query(sql, new GameMapper());
+        for(Game game : allGames)
+        {
+            if (game.getGameStatus().equals("In Progress")) {
+                game.setGameAnswer("");
+            }
+        }
+         return allGames;
     }
 
     @Override

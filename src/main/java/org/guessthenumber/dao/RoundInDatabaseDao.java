@@ -1,6 +1,5 @@
 package org.guessthenumber.dao;
 
-import org.guessthenumber.dto.Game;
 import org.guessthenumber.dto.Round;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -50,7 +49,6 @@ public class RoundInDatabaseDao implements RoundDao {
 
     @Override
     public Round findRoundById(int roundId) {
-        System.out.println("roundId is: " + roundId);
         final String sql = "SELECT * from round WHERE roundId = ?; ";
         return jdbcTemplate.queryForObject(sql, new RoundInDatabaseDao.RoundMapper(), roundId);
     }

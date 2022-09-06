@@ -45,18 +45,14 @@ public class GameServiceLayer {
         }
 
         Game newGame = new Game();
-        System.out.println("answerStringBuffer.toString() is " + answerStringBuffer.toString());
         newGame.setGameAnswer(answerStringBuffer.toString());
-        System.out.println("newGame.getGameAnswer() is: " + newGame.getGameAnswer());
+        newGame.setGameStatus("In Progress");
         return newGame;
     }
 
     public void generateNewGuess(Game game, Round round) {
         int exactMatches = 0;
         int partialMatches = 0;
-
-        System.out.println("round.getGuess() is: " + round.getGuess());
-        System.out.println("game.getGameAnswer() is: " + game.getGameAnswer());
 
         // Checks to see if there is an exact match between Guess and Answer
         if (game.getGameAnswer().equals(round.getGuess())) {
