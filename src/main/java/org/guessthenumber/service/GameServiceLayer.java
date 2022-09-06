@@ -29,7 +29,7 @@ public class GameServiceLayer {
                 int randomNum = random.nextInt(10);
                 if (answerArray.size() == 0) {
                     answerArray.add(randomNum);
-                } else if (randomNum == answerArray.get(i-1)) {
+                } else if (answerArray.contains(randomNum)) {
                     keepGoing = true;
                 } else {
                     answerArray.add(randomNum);
