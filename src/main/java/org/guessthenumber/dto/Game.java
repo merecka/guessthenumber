@@ -1,5 +1,7 @@
 package org.guessthenumber.dto;
 
+import java.util.Objects;
+
 public class Game {
 
     private int gameId;
@@ -39,5 +41,18 @@ public class Game {
                 ", gameAnswer='" + gameAnswer + '\'' +
                 ", gameStatus='" + gameStatus + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return gameId == game.gameId && gameAnswer.equals(game.gameAnswer) && gameStatus.equals(game.gameStatus);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(gameId, gameAnswer, gameStatus);
     }
 }

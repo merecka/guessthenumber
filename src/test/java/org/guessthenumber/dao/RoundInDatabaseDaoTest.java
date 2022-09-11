@@ -11,20 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RoundInDatabaseDaoTest {
 
-    @Autowired
-    private GameDao gameDao;
-
-    @Autowired
-    private RoundDao roundDao;
-
-    @BeforeEach
-    void setUp() {
-        List<Round> rounds = roundDao.getAllRounds();
-        for(Round round : rounds) {
-            roundDao.rou(room.getId());
-        }
-    }
-
     @org.junit.jupiter.api.Test
     void addRound() {
     }
