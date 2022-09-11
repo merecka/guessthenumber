@@ -31,7 +31,9 @@ public class GameController {
     @ResponseStatus(HttpStatus.CREATED)
     public Game createNewGame() {
         Game newGame = gameService.generateNewGame();
-        return gameDao.addGame(newGame);
+        Game generatedGame = gameDao.addGame(newGame);
+        generatedGame.setGameAnswer("");
+        return generatedGame;
     }
 
     @GetMapping("/game")
@@ -42,6 +44,9 @@ public class GameController {
     @GetMapping("game/{id}")
     public ResponseEntity<Game> findGameById(@PathVariable int id) {
         Game result = gameDao.findGameById(id);
+        if (result.getGameStatus().equals("In Progress")) {
+            result.setGameAnswer("");
+        }
         if (result == null) {
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
         }

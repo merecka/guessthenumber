@@ -36,7 +36,6 @@ public class GameInDatabaseDao implements GameDao {
         }, keyHolder);
 
         game.setGameId(keyHolder.getKey().intValue());
-        game.setGameAnswer("");
 
         return game;
     }
@@ -61,9 +60,9 @@ public class GameInDatabaseDao implements GameDao {
                 + "FROM game WHERE gameId = ?;";
 
         Game retrievedGame = jdbcTemplate.queryForObject(sql, new GameMapper(), id);
-        if (retrievedGame.getGameStatus().equals("In Progress")) {
-            retrievedGame.setGameAnswer("");
-        }
+//        if (retrievedGame.getGameStatus().equals("In Progress")) {
+//            retrievedGame.setGameAnswer("");
+//        }
         return retrievedGame;
     }
 

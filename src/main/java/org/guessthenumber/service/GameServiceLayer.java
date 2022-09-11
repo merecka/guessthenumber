@@ -56,7 +56,7 @@ public class GameServiceLayer {
 
         // Checks to see if there is an exact match between Guess and Answer
         if (game.getGameAnswer().equals(round.getGuess())) {
-            exactMatches = 1;
+            exactMatches = 4;
             String roundResult = "e:" + Integer.toString(exactMatches) + ":e:" + Integer.toString(partialMatches);
             game.setGameStatus("Finished");
             round.setRoundResult(roundResult);
@@ -74,8 +74,17 @@ public class GameServiceLayer {
             answerArray.add(c);
         }
 
+//        for (int i = 0; i < guessArray.size(); i++) {
+//            if (answerArray.contains(guessArray.get(i))) {
+//                partialMatches++;
+//            }
+//        }
+
         for (int i = 0; i < guessArray.size(); i++) {
-            if (answerArray.contains(guessArray.get(i))) {
+            if (answerArray.get(i).equals(guessArray.get(i))) {
+                exactMatches++;
+            }
+            else if (answerArray.contains(guessArray.get(i))) {
                 partialMatches++;
             }
         }
