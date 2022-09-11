@@ -13,4 +13,6 @@ public interface GameDao {
 
     // true if item exists and is updated
     boolean updateGame(Game game);
+
+    public void deleteGameById(int id);
 }

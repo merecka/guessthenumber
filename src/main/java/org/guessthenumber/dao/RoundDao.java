@@ -13,4 +13,6 @@ public interface RoundDao {
 
     List<Round> findRoundsByGameId(int gameId);
 
+    public void deleteRoundById(int id);
+
 }

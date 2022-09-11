@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS guessthenumberdb;
-CREATE DATABASE guessthenumberdb;
+DROP DATABASE IF EXISTS guessthenumberTESTdb;
+CREATE DATABASE guessthenumberTESTdb;
 
-USE guessthenumberdb;
+USE guessthenumberTESTdb;
 
 CREATE TABLE game(
 gameId INT PRIMARY KEY AUTO_INCREMENT,

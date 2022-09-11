@@ -1,6 +1,7 @@
 package org.guessthenumber.dto;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Round {
 
@@ -63,5 +64,18 @@ public class Round {
                 ", roundResult='" + roundResult + '\'' +
                 ", gameId=" + gameId +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Round round = (Round) o;
+        return roundId == round.roundId && gameId == round.gameId && guess.equals(round.guess) && guessTime.equals(round.guessTime) && roundResult.equals(round.roundResult);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(roundId, guess, guessTime, roundResult, gameId);
     }
 }

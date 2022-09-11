@@ -5,8 +5,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -38,6 +40,9 @@ public class RoundInDatabaseDao implements RoundDao {
 
         int newId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         round.setRoundId(newId);
+
+        Round newRound = findRoundById(round.getRoundId());
+        round.setGuessTime(newRound.getGuessTime());
         return round;
     }
 
@@ -57,6 +62,14 @@ public class RoundInDatabaseDao implements RoundDao {
     public List<Round> findRoundsByGameId(int gameId) {
         final String sql = "SELECT * from round WHERE gameId = ? ORDER BY guessTime ASC; ";
         return jdbcTemplate.query(sql, new RoundInDatabaseDao.RoundMapper(), gameId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteRoundById(int id) {
+        final String DELETE_ROUND = "DELETE FROM round "
+                + "WHERE roundId = ?";
+        jdbcTemplate.update(DELETE_ROUND, id);
     }
 
     private static final class RoundMapper implements RowMapper<Round> {

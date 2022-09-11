@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.*;
 import java.util.List;
@@ -35,7 +36,6 @@ public class GameInDatabaseDao implements GameDao {
         }, keyHolder);
 
         game.setGameId(keyHolder.getKey().intValue());
-        game.setGameAnswer("");
 
         return game;
     }
@@ -60,9 +60,9 @@ public class GameInDatabaseDao implements GameDao {
                 + "FROM game WHERE gameId = ?;";
 
         Game retrievedGame = jdbcTemplate.queryForObject(sql, new GameMapper(), id);
-        if (retrievedGame.getGameStatus().equals("In Progress")) {
-            retrievedGame.setGameAnswer("");
-        }
+//        if (retrievedGame.getGameStatus().equals("In Progress")) {
+//            retrievedGame.setGameAnswer("");
+//        }
         return retrievedGame;
     }
 
@@ -76,6 +76,14 @@ public class GameInDatabaseDao implements GameDao {
         return jdbcTemplate.update(sql,
                 game.getGameStatus(),
                 game.getGameId()) > 0;
+    }
+
+    @Override
+    @Transactional
+    public void deleteGameById(int id) {
+        final String DELETE_GAME = "DELETE FROM game "
+                + "WHERE gameId = ?";
+        jdbcTemplate.update(DELETE_GAME, id);
     }
 
     private static final class GameMapper implements RowMapper<Game> {
