@@ -47,12 +47,7 @@ class RoundInDatabaseDaoTest {
         round.setGameId(gameFromDao.getGameId());
         roundDao.addRound(round);
 
-        System.out.println("roundid is " + round.getRoundId());
-
         Round roundFromDao = roundDao.findRoundById(round.getRoundId());
-
-        System.out.println(round.toString());
-        System.out.println(roundFromDao.toString());
 
         assertEquals(round, roundFromDao);
 
