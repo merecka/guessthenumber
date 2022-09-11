@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -39,6 +40,9 @@ public class RoundInDatabaseDao implements RoundDao {
 
         int newId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         round.setRoundId(newId);
+
+        Round newRound = findRoundById(round.getRoundId());
+        round.setGuessTime(newRound.getGuessTime());
         return round;
     }
 
